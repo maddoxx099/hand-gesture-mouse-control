@@ -21,8 +21,10 @@ position_history = deque(maxlen=5)  # To store recent positions for smoothing
 # Touch state variables
 is_touching = False
 
+
 def distance(point1, point2):
     return np.sqrt((point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2)
+
 
 def detect_gesture(hand_landmarks):
     # Extract coordinates for specific landmarks
@@ -44,6 +46,7 @@ def detect_gesture(hand_landmarks):
     else:
         return "unknown"
 
+
 def smooth_coordinates(new_x, new_y, position_history):
     # Add the new position to the history
     position_history.append((new_x, new_y))
@@ -51,6 +54,7 @@ def smooth_coordinates(new_x, new_y, position_history):
     avg_x = np.mean([pos[0] for pos in position_history])
     avg_y = np.mean([pos[1] for pos in position_history])
     return avg_x, avg_y
+
 
 def control_mouse(gesture, x, y):
     global is_touching
@@ -83,6 +87,7 @@ def control_mouse(gesture, x, y):
             is_touching = True
     else:
         is_touching = False
+
 
 # Main loop for gesture detection and mouse control
 while True:
